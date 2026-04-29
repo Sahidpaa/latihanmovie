@@ -20,7 +20,7 @@
     <input type="text"
            class="form-control @error('judul') is-invalid @enderror"
            id="judul" name="judul"
-           value="{{ $movie->judul ?? '' }}" required>
+           value="{{ old('judul', optional($movie)->judul) }}" required>
     @error('judul')
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
@@ -33,7 +33,7 @@
         <option value="">Pilih Kategori</option>
         @foreach ($categories as $category)
             <option value="{{ $category->id }}"
-                {{ isset($movie) && $movie->category_id == $category->id ? 'selected' : '' }}>
+                {{ old('category_id', optional($movie)->category_id) == $category->id ? 'selected' : '' }}>
                 {{ $category->nama_kategori }}
             </option>
         @endforeach
@@ -46,7 +46,7 @@
 <div class="mb-3">
     <label for="sinopsis" class="form-label">Sinopsis:</label>
     <textarea class="form-control @error('sinopsis') is-invalid @enderror"
-              id="sinopsis" name="sinopsis" rows="4" required>{{ $movie->sinopsis ?? '' }}</textarea>
+              id="sinopsis" name="sinopsis" rows="4" required>{{ old('sinopsis', optional($movie)->sinopsis) }}</textarea>
     @error('sinopsis')
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
@@ -57,7 +57,7 @@
     <input type="number"
            class="form-control @error('tahun') is-invalid @enderror"
            id="tahun" name="tahun"
-           value="{{ $movie->tahun ?? '' }}" required>
+           value="{{ old('tahun', optional($movie)->tahun) }}" required>
     @error('tahun')
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
@@ -68,7 +68,7 @@
     <input type="text"
            class="form-control @error('pemain') is-invalid @enderror"
            id="pemain" name="pemain"
-           value="{{ $movie->pemain ?? '' }}" required>
+           value="{{ old('pemain', optional($movie)->pemain) }}" required>
     @error('pemain')
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
