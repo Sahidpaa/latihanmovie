@@ -3,35 +3,28 @@
 @section('title', 'Homepage')
 
 @section('content')
-
-@if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>    
-@endif
-
 <h1>Popular Movie</h1>
-<div class="row">
-    @foreach ($movies as $movie)
-    <div class="col-lg-6">
-        <div class="card mb-3" style="max-width: 540px;">
-            <div class="row g-0">
-              <div class="col-md-4">
-                <img src="/images/{{ $movie['foto_sampul'] }}" class="img-fluid rounded-start" alt="...">
-            </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $movie['judul'] }}</h5>
-                        <p class="card-text">{{ $movie['sinopsis'] }}</p>
-                        <a href="/movie/{{ $movie['id'] }}" class="btn btn-success">Lihat Selanjutnya</a>
-                    </div>
-                </div>
-            </div>
+
+<div class="mb-3">
+    <form action="/" method="GET">
+        <div class="input-group">
+            <input type="text" class="form-control" name="search"
+                   placeholder="Cari judul atau sinopsis..."
+                   value="{{ request('search') }}">
+            <button class="btn btn-primary" type="submit">Cari</button>
         </div>
-    </div>
-    @endforeach
-    <div class="d-flex justify-content-center">
-        {{ $movies->links() }}
-    </div>
+    </form>
+</div>
+
+<div class="row">
+    @forelse ($movies as $movie)
+        @include('partials.movie-card', ['movie' => $movie])
+    @empty
+        <p class="text-muted">Tidak ada film ditemukan.</p>
+    @endforelse
+</div>
+
+<div class="d-flex justify-content-center mt-3">
+    {{ $movies->links() }}
 </div>
 @endsection
